@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "Hash": "7YBLe/EL6L355MyUfUnc5697IwMuwq4cWPXhr1iD+V8=",
+  "Source": "Nexon.FleaMarket.Api",
+  "BasePath": "_content/Nexon.FleaMarket.Api",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": []
+}

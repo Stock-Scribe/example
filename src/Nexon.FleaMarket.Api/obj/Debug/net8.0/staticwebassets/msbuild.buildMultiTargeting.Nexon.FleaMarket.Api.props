@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="../build/Nexon.FleaMarket.Api.props" />
+</Project>

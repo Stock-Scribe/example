@@ -1,0 +1,11 @@
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/bin/Debug/net8.0/Nexon.FleaMarket.Domain.deps.json
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/bin/Debug/net8.0/Nexon.FleaMarket.Domain.dll
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/bin/Debug/net8.0/Nexon.FleaMarket.Domain.pdb
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/obj/Debug/net8.0/Nexon.FleaMarket.Domain.GeneratedMSBuildEditorConfig.editorconfig
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/obj/Debug/net8.0/Nexon.FleaMarket.Domain.AssemblyInfoInputs.cache
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/obj/Debug/net8.0/Nexon.FleaMarket.Domain.AssemblyInfo.cs
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/obj/Debug/net8.0/Nexon.FleaMarket.Domain.csproj.CoreCompileInputs.cache
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/obj/Debug/net8.0/Nexon.FleaMarket.Domain.dll
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/obj/Debug/net8.0/refint/Nexon.FleaMarket.Domain.dll
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/obj/Debug/net8.0/Nexon.FleaMarket.Domain.pdb
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Domain/obj/Debug/net8.0/ref/Nexon.FleaMarket.Domain.dll
