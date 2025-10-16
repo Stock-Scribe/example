@@ -2,98 +2,64 @@ namespace Nexon.FleaMarket.Domain.Entities;
 
 public class Product
 {
-    // 식별자/속성
-    public long ProductId { get; private set; }             // PK
-    public string ProductName { get; private set; } = null!;
-    public int CategoryId { get; private set; }           // FK (Category)
-    public long BasePrice { get; private set; }           // 기본 가격 (price)
-    public string DurationType { get; private set; } = null!; // "PERMANENT", "TEMPORARY"
-    public int? DurationDays { get; private set; }          // 기간제일 경우 일수
-    public string? ImageUrl { get; private set; }           // 상품 이미지 URL
+    public long Id { get; private set; }
+    public int ExternalItemNo { get; private set; }
+    public string Name { get; private set; }
+    public int CategoryId { get; private set; }
+    public long BasePrice { get; private set; }
+    public string DurationType { get; private set; } // PERMANENT / TEMPORARY
+    public int? DurationDays { get; private set; }
+    public string ImageUrl { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 
-    // EF Core용 기본 생성자
-    private Product() { }
+    protected Product() { }
 
-    // 팩토리 메서드
-    public static Product Create(
-        string productName,
+    public Product(
+        int externalItemNo,
+        string name,
         int categoryId,
         long basePrice,
         string durationType,
         int? durationDays = null,
-        string? imageUrl = null)
+        string imageUrl = null)
     {
-        if (string.IsNullOrWhiteSpace(productName))
-            throw new ArgumentException("Product name is required.");
-        if (categoryId <= 0)
-            throw new ArgumentException("Invalid category id.");
-        if (basePrice < 0)
-            throw new ArgumentException("Base price must be non-negative.");
-        if (string.IsNullOrWhiteSpace(durationType))
-            throw new ArgumentException("DurationType is required.");
-
-        // 임시 상품 생성
-        return new Product
-        {
-            ProductName = productName.Trim(),
-            CategoryId = categoryId,
-            BasePrice = basePrice,
-            DurationType = durationType.Trim().ToUpperInvariant(),
-            DurationDays = durationType.Equals("TEMPORARY", StringComparison.OrdinalIgnoreCase)
-                ? durationDays ?? throw new ArgumentException("DurationDays is required for TEMPORARY products.")
-                : null,
-            ImageUrl = imageUrl,
-            CreatedAt = DateTime.UtcNow,
-            UpdatedAt = DateTime.UtcNow
-        };
-    }
-
-    // 상품명 수정
-    public void Rename(string newName)
-    {
-        if (string.IsNullOrWhiteSpace(newName))
-            throw new ArgumentException("Product name is required.");
-        var trimmed = newName.Trim();
-        if (string.Equals(ProductName, trimmed, StringComparison.Ordinal))
-            return;
-        ProductName = trimmed;
+        ExternalItemNo = externalItemNo;
+        Name = name;
+        CategoryId = categoryId;
+        BasePrice = basePrice;
+        DurationType = durationType;
+        DurationDays = durationDays;
+        ImageUrl = imageUrl;
+        CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
     }
 
-    // 가격 변경
+    /// <summary>
+    /// 영구 아이템인지 확인
+    /// </summary>
+    public bool IsPermanent() => DurationType == "PERMANENT";
+
+    /// <summary>
+    /// 기간제 아이템인지 확인
+    /// </summary>
+    public bool IsTemporary() => DurationType == "TEMPORARY";
+
+    /// <summary>
+    /// 만료일 계산
+    /// </summary>
+    public DateTime? CalculateExpirationDate()
+    {
+        if (IsPermanent()) return null;
+        return DateTime.UtcNow.AddDays(DurationDays ?? 0);
+    }
+
+    /// <summary>
+    /// 가격 변경
+    /// </summary>
     public void UpdatePrice(long newPrice)
     {
-        if (newPrice < 0)
-            throw new ArgumentException("Price cannot be negative.");
-        if (newPrice == BasePrice)
-            return;
-        BasePrice= newPrice;
-        UpdatedAt = DateTime.UtcNow;
-    }
-
-    // 기간 정보 변경
-    public void UpdateDuration(string newType, int? newDays = null)
-    {
-        if (string.IsNullOrWhiteSpace(newType))
-            throw new ArgumentException("DurationType is required.");
-
-        var type = newType.Trim().ToUpperInvariant();
-
-        if (type == "TEMPORARY")
-        {
-            if (newDays is null or <= 0)
-                throw new ArgumentException("DurationDays must be positive for TEMPORARY products.");
-            DurationDays = newDays;
-        }
-        else
-        {
-            DurationDays = null;
-        }
-
-        DurationType = type;
+        BasePrice = newPrice;
         UpdatedAt = DateTime.UtcNow;
     }
 }
-    

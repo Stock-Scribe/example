@@ -1,31 +1,38 @@
-# docker-compose.yml (Healthcheck 제거 최종 버전)
+
+version: '3.8'
 
 services:
+  # SQL Server (Azure SQL Edge - ARM64 지원)
   mssql:
     image: mcr.microsoft.com/azure-sql-edge:latest
     platform: linux/arm64
     container_name: mssql
     environment:
       ACCEPT_EULA: "Y"
-      MSSQL_SA_PASSWORD: "Paul2858!"
+      MSSQL_SA_PASSWORD: "Paul2858"
+      MSSQL_PID: "Developer"
+      MSSQL_COLLATION: "Korean_Wansung_CI_AS"
     ports:
       - "1433:1433"
     volumes:
       - mssql-data:/var/opt/mssql
+    restart: unless-stopped
 
-  sqlpad:
-    image: sqlpad/sqlpad:latest
-    container_name: sqlpad
+  # Azure Data Studio 웹 버전 (Cloudbeaver)
+  cloudbeaver:
+    image: dbeaver/cloudbeaver:latest
+    container_name: cloudbeaver
     ports:
-      - "3001:3000"
-    environment:
-      SQLPAD_ADMIN: "admin@local"
-      SQLPAD_ADMIN_PASSWORD: "admin"
-    depends_on:
-      - mssql # mssql 컨테이너가 시작되면 이어서 실행
+      - "8978:8978"
     volumes:
-      - sqlpad-data:/var/lib/sqlpad
+      - cloudbeaver-data:/opt/cloudbeaver/workspace
+    environment:
+      CB_SERVER_NAME: "FleaMarket DB"
+      CB_SERVER_URL: "http://localhost:8978"
+    depends_on:
+      - mssql
+    restart: unless-stopped
 
 volumes:
   mssql-data:
-  sqlpad-data:
+  cloudbeaver-data:
