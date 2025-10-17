@@ -2,35 +2,31 @@ namespace Nexon.FleaMarket.Domain.Entities;
 
 public class Product
 {
-    public long Id { get; private set; }
-    public int ExternalItemNo { get; private set; }
-    public string Name { get; private set; }
+    public long ProductId { get; private set; }
+    public string ProductName { get; private set; }
     public int CategoryId { get; private set; }
-    public long BasePrice { get; private set; }
+    public string ImageUrl { get; private set; }
     public string DurationType { get; private set; } // PERMANENT / TEMPORARY
     public int? DurationDays { get; private set; }
-    public string ImageUrl { get; private set; }
+    public int SellCount { get; private set; }
     public DateTime CreatedAt { get; private set; }
     public DateTime UpdatedAt { get; private set; }
 
     protected Product() { }
 
     public Product(
-        int externalItemNo,
-        string name,
+        string productName,
         int categoryId,
-        long basePrice,
         string durationType,
         int? durationDays = null,
         string imageUrl = null)
     {
-        ExternalItemNo = externalItemNo;
-        Name = name;
+        ProductName = productName;
         CategoryId = categoryId;
-        BasePrice = basePrice;
         DurationType = durationType;
         DurationDays = durationDays;
         ImageUrl = imageUrl;
+        SellCount = 0;
         CreatedAt = DateTime.UtcNow;
         UpdatedAt = DateTime.UtcNow;
     }
@@ -55,11 +51,29 @@ public class Product
     }
 
     /// <summary>
-    /// 가격 변경
+    /// 판매 횟수 증가
     /// </summary>
-    public void UpdatePrice(long newPrice)
+    public void IncrementSellCount()
     {
-        BasePrice = newPrice;
+        SellCount++;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// 상품명 변경
+    /// </summary>
+    public void UpdateName(string newName)
+    {
+        ProductName = newName;
+        UpdatedAt = DateTime.UtcNow;
+    }
+
+    /// <summary>
+    /// 이미지 URL 변경
+    /// </summary>
+    public void UpdateImageUrl(string newImageUrl)
+    {
+        ImageUrl = newImageUrl;
         UpdatedAt = DateTime.UtcNow;
     }
 }

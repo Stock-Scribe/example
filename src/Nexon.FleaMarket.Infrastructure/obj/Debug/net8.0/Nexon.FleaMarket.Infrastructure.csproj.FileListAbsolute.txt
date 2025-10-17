@@ -16,3 +16,5 @@
 /Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/obj/Debug/net8.0/Nexon.FleaMarket.Infrastructure.genruntimeconfig.cache
 /Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/obj/Debug/net8.0/ref/Nexon.FleaMarket.Infrastructure.dll
 /Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/obj/Debug/net8.0/Nexon.FleaMarket.Infrastructure.sourcelink.json
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/bin/Debug/net8.0/Nexon.FleaMarket.Application.dll
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/bin/Debug/net8.0/Nexon.FleaMarket.Application.pdb

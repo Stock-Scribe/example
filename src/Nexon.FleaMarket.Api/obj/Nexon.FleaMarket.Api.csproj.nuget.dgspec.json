@@ -26,6 +26,9 @@
           "net8.0": {
             "targetAlias": "net8.0",
             "projectReferences": {
+              "/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Application/Nexon.FleaMarket.Application.csproj": {
+                "projectPath": "/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Application/Nexon.FleaMarket.Application.csproj"
+              },
               "/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/Nexon.FleaMarket.Infrastructure.csproj": {
                 "projectPath": "/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/Nexon.FleaMarket.Infrastructure.csproj"
               }

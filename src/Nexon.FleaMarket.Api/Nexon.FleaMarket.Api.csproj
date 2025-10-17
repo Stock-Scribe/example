@@ -19,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Nexon.FleaMarket.Infrastructure\Nexon.FleaMarket.Infrastructure.csproj" />
+    <ProjectReference Include="..\Nexon.FleaMarket.Application\Nexon.FleaMarket.Application.csproj" />
   </ItemGroup>
 
 </Project>

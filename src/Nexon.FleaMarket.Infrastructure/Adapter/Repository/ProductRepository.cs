@@ -1,10 +1,12 @@
-using Nexon.FleaMarket.Application.Dtos.request;
-using Nexon.FleaMarket.Application.Dtos.response;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using Nexon.FleaMarket.Application.Dto.common;
+using Nexon.FleaMarket.Application.Dto.request;
+using Nexon.FleaMarket.Application.Dto.response;
 
 namespace Nexon.FleaMarket.Infrastructure.Repository;
-public class ProductRepository : IProductRepository
+
+public class ProductRepository : IProductPort
 {
     private readonly string _connectionString;
 
@@ -13,7 +15,10 @@ public class ProductRepository : IProductRepository
         _connectionString = connectionString;
     }
 
-    public async Task<PagedResult<ProductResponse>> SearchProductsAsync(ProductSearchRequest request)
+    /// <summary>
+    /// 상품 목록 조회 (검색, 필터링, 정렬, 페이징)
+    /// </summary>
+    public async Task<ApiResponse<PagedData<ProductResponse>>> SearchProductsAsync(ProductSearchRequest request)
     {
         using var connection = new SqlConnection(_connectionString);
 
@@ -21,47 +26,70 @@ public class ProductRepository : IProductRepository
         var conditions = new List<string>();
         var parameters = new DynamicParameters();
 
-        // 검색 키워드
+        // 1. 검색 키워드 (상품명)
         if (!string.IsNullOrWhiteSpace(request.SearchKeyword))
         {
             conditions.Add("p.ProductName LIKE @SearchKeyword");
             parameters.Add("SearchKeyword", $"%{request.SearchKeyword}%");
         }
 
-        // 카테고리 필터
+        // 2. 카테고리 필터
         if (request.CategoryId.HasValue)
         {
             conditions.Add("p.CategoryId = @CategoryId");
             parameters.Add("CategoryId", request.CategoryId.Value);
         }
 
-        // 최소 가격
-        if (request.MinPrice.HasValue)
+        // 3. 가격 필터 (최저가 기준)
+        if (request.MinPrice.HasValue || request.MaxPrice.HasValue)
         {
-            conditions.Add("p.BasePriceSP >= @MinPrice");
-            parameters.Add("MinPrice", request.MinPrice.Value);
-        }
+            conditions.Add(@"
+                p.ProductId IN (
+                    SELECT ProductId 
+                    FROM SellListings 
+                    WHERE Status = 'ACTIVE' 
+                      AND Quantity > 0
+                      {0}
+                )");
 
-        // 최대 가격
-        if (request.MaxPrice.HasValue)
-        {
-            conditions.Add("p.BasePriceSP <= @MaxPrice");
-            parameters.Add("MaxPrice", request.MaxPrice.Value);
+            var priceConditions = new List<string>();
+            if (request.MinPrice.HasValue)
+            {
+                priceConditions.Add("UnitPriceSP >= @MinPrice");
+                parameters.Add("MinPrice", request.MinPrice.Value);
+            }
+            if (request.MaxPrice.HasValue)
+            {
+                priceConditions.Add("UnitPriceSP <= @MaxPrice");
+                parameters.Add("MaxPrice", request.MaxPrice.Value);
+            }
+
+            var lastCondition = conditions[conditions.Count - 1];
+            conditions[conditions.Count - 1] = string.Format(
+                lastCondition, 
+                priceConditions.Any() ? "AND " + string.Join(" AND ", priceConditions) : ""
+            );
         }
 
         var whereClause = conditions.Any()
             ? "WHERE " + string.Join(" AND ", conditions)
             : "";
 
-        // 정렬
+        // 4. 정렬
         var orderBy = request.SortBy?.ToLower() switch
         {
+            "price" => @"ORDER BY (
+                SELECT MIN(UnitPriceSP) 
+                FROM SellListings 
+                WHERE ProductId = p.ProductId 
+                  AND Status = 'ACTIVE' 
+                  AND Quantity > 0
+            ) ASC",
             "latest" => "ORDER BY p.CreatedAt DESC",
-            "price" => "ORDER BY p.BasePriceSP ASC",
-            _ => "ORDER BY p.BasePriceSP ASC"
+            _ => "ORDER BY p.CreatedAt DESC"
         };
 
-        // 페이지네이션
+        // 5. 페이지네이션 (20개 단위)
         var offset = (request.Page - 1) * request.PageSize;
         parameters.Add("Offset", offset);
         parameters.Add("PageSize", request.PageSize);
@@ -74,17 +102,17 @@ public class ProductRepository : IProductRepository
 
         var totalCount = await connection.ExecuteScalarAsync<int>(countQuery, parameters);
 
-        // 상품 목록 조회 (최저가 포함)
+        // 상품 목록 조회
         var query = $@"
             SELECT 
                 p.ProductId,
-                p.ExternalItemNo,
                 p.ProductName,
+                p.CategoryId,
                 c.CategoryName,
-                p.BasePriceSP AS BasePrice,
+                p.ImageUrl,
                 p.DurationType,
                 p.DurationDays,
-                p.ImageUrl,
+                p.SellCount,
                 (
                     SELECT MIN(UnitPriceSP)
                     FROM SellListings
@@ -107,12 +135,17 @@ public class ProductRepository : IProductRepository
 
         var products = await connection.QueryAsync<ProductResponse>(query, parameters);
 
-        return new PagedResult<ProductResponse>
+        var pagedData = new PagedData<ProductResponse>
         {
             Items = products.ToList(),
             TotalCount = totalCount,
             Page = request.Page,
             PageSize = request.PageSize
         };
+
+        return ApiResponse<PagedData<ProductResponse>>.SuccessResponse(
+            pagedData,
+            "상품 목록 조회 성공"
+        );
     }
 }

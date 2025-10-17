@@ -13,6 +13,7 @@
           "Microsoft.EntityFrameworkCore": "9.0.10",
           "Microsoft.EntityFrameworkCore.Design": "9.0.10",
           "Microsoft.EntityFrameworkCore.SqlServer": "9.0.10",
+          "Nexon.FleaMarket.Application": "1.0.0",
           "Nexon.FleaMarket.Domain": "1.0.0"
         },
         "runtime": {
@@ -977,6 +978,17 @@
         }
       },
       "System.Threading.Channels/7.0.0": {},
+      "Nexon.FleaMarket.Application/1.0.0": {
+        "dependencies": {
+          "Nexon.FleaMarket.Domain": "1.0.0"
+        },
+        "runtime": {
+          "Nexon.FleaMarket.Application.dll": {
+            "assemblyVersion": "1.0.0",
+            "fileVersion": "1.0.0.0"
+          }
+        }
+      },
       "Nexon.FleaMarket.Domain/1.0.0": {
         "runtime": {
           "Nexon.FleaMarket.Domain.dll": {
@@ -1454,6 +1466,11 @@
       "sha512": "sha512-qmeeYNROMsONF6ndEZcIQ+VxR4Q/TX/7uIVLJqtwIWL7dDWeh0l1UIqgo4wYyjG//5lUNhwkLDSFl+pAWO6oiA==",
       "path": "system.threading.channels/7.0.0",
       "hashPath": "system.threading.channels.7.0.0.nupkg.sha512"
+    },
+    "Nexon.FleaMarket.Application/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     },
     "Nexon.FleaMarket.Domain/1.0.0": {
       "type": "project",

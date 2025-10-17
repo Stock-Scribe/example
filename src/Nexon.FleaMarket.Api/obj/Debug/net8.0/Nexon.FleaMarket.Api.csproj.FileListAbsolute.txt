@@ -203,3 +203,5 @@
 /Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Api/bin/Debug/net8.0/Nexon.FleaMarket.Infrastructure.pdb
 /Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Api/bin/Debug/net8.0/Nexon.FleaMarket.Domain.pdb
 /Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Api/obj/Debug/net8.0/Nexon.FleaMarket.Api.sourcelink.json
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Api/bin/Debug/net8.0/Nexon.FleaMarket.Application.dll
+/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Api/bin/Debug/net8.0/Nexon.FleaMarket.Application.pdb

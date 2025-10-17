@@ -4481,6 +4481,7 @@
       "Microsoft.AspNetCore.OpenApi >= 8.0.20",
       "Microsoft.Data.SqlClient >= 6.1.2",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.10",
+      "Nexon.FleaMarket.Application >= 1.0.0",
       "Nexon.FleaMarket.Infrastructure >= 1.0.0",
       "Swashbuckle.AspNetCore >= 6.6.2"
     ]
@@ -4510,6 +4511,9 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "projectReferences": {
+            "/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Application/Nexon.FleaMarket.Application.csproj": {
+              "projectPath": "/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Application/Nexon.FleaMarket.Application.csproj"
+            },
             "/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/Nexon.FleaMarket.Infrastructure.csproj": {
               "projectPath": "/Users/zack8361/Desktop/이찬호자료/nexon-project/src/Nexon.FleaMarket.Infrastructure/Nexon.FleaMarket.Infrastructure.csproj"
             }
