@@ -10,11 +10,11 @@ namespace Nexon.FleaMarket.Api.Controllers;
 public class OrderController: ControllerBase
 {
     
-    private readonly IGetCompletedOrderUseCase _getCompletedOrdersUseCase;
+    private readonly IOrderUseCase _ordersUseCase;
 
-    public OrderController(IGetCompletedOrderUseCase getCompletedOrdersUseCase)
+    public OrderController(IOrderUseCase ordersUseCase)
     {
-        _getCompletedOrdersUseCase = getCompletedOrdersUseCase;
+        _ordersUseCase = ordersUseCase;
     }
 
     /// <summary>
@@ -25,7 +25,7 @@ public class OrderController: ControllerBase
     [HttpGet("completed")]
     public async Task<IActionResult> GetCompletedOrders([FromQuery] GetCompletedOrdersRequest request)
     {
-        var result = await _getCompletedOrdersUseCase.GetCompletedOrdersAsync(request);
+        var result = await _ordersUseCase.GetCompletedOrdersAsync(request);
 
         if (!result.Success)
         {
@@ -33,6 +33,5 @@ public class OrderController: ControllerBase
         }
         
         return Ok(result);
-
     }
 }

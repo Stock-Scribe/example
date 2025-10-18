@@ -6,11 +6,11 @@ using Nexon.FleaMarket.Application.Dto.response;
 
 namespace Nexon.FleaMarket.Infrastructure.Repository;
 
-public class CompletedOrderRepository: ICompletedOrderPort
+public class OrderRepository: IOrderPort
 {
     private readonly string _connectionString;
 
-    public CompletedOrderRepository(string connectionString)
+    public OrderRepository(string connectionString)
     {
         _connectionString = connectionString;
     }

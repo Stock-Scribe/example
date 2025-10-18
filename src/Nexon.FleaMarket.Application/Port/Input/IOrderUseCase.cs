@@ -4,8 +4,8 @@ using Nexon.FleaMarket.Application.Dto.response;
 
 namespace Nexon.FleaMarket.Application.UseCase;
 
-public interface IGetMyListingUseCase
+public interface IOrderUseCase
 {
-    Task<ApiResponse<GetMyListingResponse>> GetMyListingsAsync(GetMyListingsRequest request);
+    Task<ApiResponse<GetCompletedOrdersResponse>> GetCompletedOrdersAsync(GetCompletedOrdersRequest request);
 
 }

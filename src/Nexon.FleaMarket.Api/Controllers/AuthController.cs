@@ -1,35 +1,34 @@
 using Microsoft.AspNetCore.Identity.Data;
 using Microsoft.AspNetCore.Mvc;
-
-namespace Nexon.FleaMarket.Api.Controllers;
+using Nexon.FleaMarket.Application.Dto.common;
+using Nexon.FleaMarket.Application.Dto.request;
+using Nexon.FleaMarket.Application.Dto.response;
+using Nexon.FleaMarket.Application.Port.Input;
 
 
 [ApiController]
-[Route("api/[controller]")]
-public class AuthController
+[Route("api/auth")]
+public class AuthController : ControllerBase
 {
-    private readonly ILoginUseCase _loginUseCase;
+    private readonly IAuthUseCase _authUseCase;
 
-    public AuthController(ILoginUseCase loginUseCase)
+    public AuthController
+        (IAuthUseCase authUseCase)
     {
-        _loginUseCase = loginUseCase;
+        _authUseCase = authUseCase;
     }
 
     /// <summary>
     /// 로그인
     /// </summary>
-    /// <param name="request">이메일, 비밀번호</param>
-    /// <returns>유저 정보</returns>
     [HttpPost("login")]
-    public async Task<IActionResult> Login([FromBody] LoginRequest request)
+    [ProducesResponseType(typeof(ApiResponse<LoginResponse>), 200)]
+    [ProducesResponseType(typeof(ApiResponse<LoginResponse>), 400)]
+    [ProducesResponseType(typeof(ApiResponse<LoginResponse>), 401)]
+    [ProducesResponseType(typeof(ApiResponse<LoginResponse>), 500)]
+    public async Task<ActionResult<ApiResponse<LoginResponse>>> Login([FromBody] UserLoginRequest request)
     {
-        var result = await _loginUseCase.LoginAsync(request);
-        
-        if (!result.Success)
-        {
-            return StatusCode(result.StatusCode, result);
-        }
-
-        return Ok(result);
+        var result = await _authUseCase.LoginAsync(request);
+        return StatusCode(result.StatusCode, result);
     }
 }

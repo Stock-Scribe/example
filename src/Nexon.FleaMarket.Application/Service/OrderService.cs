@@ -6,20 +6,18 @@ using Nexon.FleaMarket.Infrastructure.Repository;
 
 namespace Nexon.FleaMarket.Application.Service;
 
-public class MyListingService: IGetMyListingUseCase
+public class OrderService: IOrderUseCase
 {
-    private readonly IMyListingsPort _myListingsPort;
-
-    public MyListingService(IMyListingsPort myListingsPort)
+    private readonly IOrderPort _ordersPort;
+    public OrderService(IOrderPort ordersPort)
     {
-        _myListingsPort = myListingsPort;
+        _ordersPort = ordersPort;
     }
-
-    public async Task<ApiResponse<GetMyListingResponse>> GetMyListingsAsync(GetMyListingsRequest request)
+    public async Task<ApiResponse<GetCompletedOrdersResponse>> GetCompletedOrdersAsync(GetCompletedOrdersRequest request)
     {
         if (request.UserId <= 0)
         {
-            return ApiResponse<GetMyListingResponse>.ErrorResponse(
+            return ApiResponse<GetCompletedOrdersResponse>.ErrorResponse(
                 "유효하지 않은 유저 ID입니다.",
                 400
             );
@@ -35,12 +33,11 @@ public class MyListingService: IGetMyListingUseCase
             request.Page = 1;
         }
 
-        if (request.Type != "ALL" && request.Type != "SELLING" && 
-            request.Type != "BUYING" && request.Type != "CANCELLED")
+        if (request.Type != "ALL" && request.Type != "BUY" && request.Type != "SELL")
         {
             request.Type = "ALL";
         }
 
-        return await _myListingsPort.GetMyListingsAsync(request);    
+        return await _ordersPort.GetCompletedOrdersAsync(request);
     }
 }

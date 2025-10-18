@@ -6,11 +6,11 @@ using Nexon.FleaMarket.Infrastructure.Repository;
 
 namespace Nexon.FleaMarket.Application.Service;
 
-public class SearchProductsService : ISearchProductUseCase
+public class ProductsService : IProductUseCase
 {
     private readonly IProductPort _productPort;
 
-    public SearchProductsService(IProductPort productPort)
+    public ProductsService(IProductPort productPort)
     {
         _productPort = productPort;
     }

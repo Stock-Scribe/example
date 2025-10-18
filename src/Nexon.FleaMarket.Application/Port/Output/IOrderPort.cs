@@ -4,7 +4,7 @@ using Nexon.FleaMarket.Application.Dto.response;
 
 namespace Nexon.FleaMarket.Infrastructure.Repository;
 
-public interface IMyListingsPort
+public interface IOrderPort
 {
-    Task<ApiResponse<GetMyListingResponse>> GetMyListingsAsync(GetMyListingsRequest request);
+    Task<ApiResponse<GetCompletedOrdersResponse>> GetCompletedOrdersAsync(GetCompletedOrdersRequest request);
 }

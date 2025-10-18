@@ -4,9 +4,10 @@ using Nexon.FleaMarket.Application.Dto.response;
 
 namespace Nexon.FleaMarket.Infrastructure.Repository;
 
-public interface ICreateBuyListingPort
+public interface IAuthPort
 {
-    Task<ApiResponse<CreateBuyListingResponse>> CreateBuyListingAsync(
-        CreateBuyListingRequest request);
-
+    /// <summary>
+    /// 로그인
+    /// </summary>
+    Task<ApiResponse<LoginResponse>> LoginAsync(UserLoginRequest request);
 }

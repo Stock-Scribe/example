@@ -4,7 +4,7 @@ using Nexon.FleaMarket.Application.Dto.response;
 
 namespace Nexon.FleaMarket.Application.UseCase;
 
-public interface ISearchProductUseCase
+public interface IProductUseCase
 {
     Task<ApiResponse<PagedData<ProductResponse>>> SearchProducts(ProductSearchRequest request);
 }
