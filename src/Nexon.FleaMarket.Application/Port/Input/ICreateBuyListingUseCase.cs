@@ -6,5 +6,5 @@ namespace Nexon.FleaMarket.Application.UseCase;
 
 public interface ICreateBuyListingUseCase
 {
-    Task<ApiResponse<CreateBuyListingResponse>> CreateBuyListingAsync(CreateBuyListingRequest request, CancellationToken ct = default);
+    Task<ApiResponse<CreateBuyListingResponse>> CreateBuyListingAsync(CreateBuyListingRequest request);
 }

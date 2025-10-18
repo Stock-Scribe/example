@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Nexon.FleaMarket.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+922fb56eb29c1a7c7fa181ac70982eb97a795270")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+e2f19fe11b445f05b312dd78e475a0f8b02a5c5f")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nexon.FleaMarket.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nexon.FleaMarket.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

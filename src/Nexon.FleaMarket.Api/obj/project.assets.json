@@ -1517,6 +1517,7 @@
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
         "dependencies": {
+          "Microsoft.Data.SqlClient": "6.1.2",
           "Nexon.FleaMarket.Domain": "1.0.0"
         },
         "compile": {

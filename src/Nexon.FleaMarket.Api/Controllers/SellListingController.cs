@@ -7,7 +7,7 @@ using Nexon.FleaMarket.Application.UseCase;
 namespace Nexon.FleaMarket.Api.Controllers;
 
 [ApiController]
-[Route("api/[controller]")]
+[Route("api/sell-listing")]
 public class SellListingController: ControllerBase
 {   
     private readonly ICreateSellListingUseCase _createSellListingUseCase;

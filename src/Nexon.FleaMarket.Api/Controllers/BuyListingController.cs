@@ -9,11 +9,11 @@ namespace Nexon.FleaMarket.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
-public class BuyController : ControllerBase
+public class BuyListingController : ControllerBase
 {
     private readonly ICreateBuyListingUseCase _createBuyListingUseCase;
 
-    public BuyController(ICreateBuyListingUseCase createBuyListingUseCase)
+    public BuyListingController(ICreateBuyListingUseCase createBuyListingUseCase)
     {
         _createBuyListingUseCase = createBuyListingUseCase;
     }
@@ -29,7 +29,7 @@ public class BuyController : ControllerBase
         [FromBody] CreateBuyListingRequest request,
         CancellationToken ct)
     {
-        var result = await _createBuyListingUseCase.CreateBuyListingAsync(request, ct);
+        var result = await _createBuyListingUseCase.CreateBuyListingAsync(request);
         return StatusCode(result.StatusCode, result);
     }
 }

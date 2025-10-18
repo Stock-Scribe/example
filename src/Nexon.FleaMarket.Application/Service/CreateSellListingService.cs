@@ -50,13 +50,21 @@ public class CreateSellListingService : ICreateSellListingUseCase
             );
         }
 
-        // 2. Repository 호출 (SP 실행)
+        // 2. Repository 호출 (SP 실행 - 매칭 로직 포함)
         var result = await _createSellListingPort.CreateSellListingAsync(request);
 
-        // 3. 추가 비즈니스 로직 (나중에 추가 가능)
-        // - 로깅
-        // - 알림 전송
-        // - 통계 업데이트
+        // 3. 결과에 따라 메시지 커스터마이징
+        if (result.Success && result.Data != null)
+        {
+            if (result.Data.IsMatched)
+            {
+                result.Message = $"거래가 즉시 성사되었습니다! (수량: {result.Data.ProcessedQuantity})";
+            }
+            else
+            {
+                result.Message = $"판매 등록이 완료되었습니다. (수량: {result.Data.ProcessedQuantity})";
+            }
+        }
 
         return result;
     }

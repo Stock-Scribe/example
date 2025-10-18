@@ -7,7 +7,6 @@ namespace Nexon.FleaMarket.Infrastructure.Repository;
 public interface ICreateBuyListingPort
 {
     Task<ApiResponse<CreateBuyListingResponse>> CreateBuyListingAsync(
-        CreateBuyListingRequest request,
-        CancellationToken ct = default);
+        CreateBuyListingRequest request);
 
 }

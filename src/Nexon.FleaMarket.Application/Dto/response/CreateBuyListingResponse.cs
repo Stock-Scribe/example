@@ -2,6 +2,11 @@ namespace Nexon.FleaMarket.Application.Dto.response;
 
 public class CreateBuyListingResponse
 {
-    public long BuyListingId { get; init; }   // 생성된 구매 리스팅 ID
-    public long? OrderId { get; init; }       // 매칭된 경우 생성된 주문 ID (없으면 null)
+    public int ResultCode { get; set; }
+    public string ResultMessage { get; set; } = string.Empty;
+    public bool IsMatched { get; set; }
+    public long? OrderId { get; set; }
+    public long? BuyListingId { get; set; }
+    public int ProcessedQuantity { get; set; }
+    public int RemainingQuantity { get; set; }
 }

@@ -1,0 +1,10 @@
+using Nexon.FleaMarket.Application.Dto.common;
+using Nexon.FleaMarket.Application.Dto.request;
+using Nexon.FleaMarket.Application.Dto.response;
+
+namespace Nexon.FleaMarket.Infrastructure.Repository;
+
+public interface IMyListingsPort
+{
+    Task<ApiResponse<GetMyListingResponse>> GetMyListingsAsync(GetMyListingsRequest request);
+}
